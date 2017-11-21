@@ -1,0 +1,39 @@
+version: '2'
+
+volumes:
+ vol-db-confluence:
+ vol-db-jira:
+ vol-db-bitbucket:
+ vol-db-artifactory:
+
+
+
+
+services:
+
+ app-confluence:
+  depends_on:
+  - db-confluence
+  links:
+  - db-confluence:postgres01
+#  volumes:
+#  - ./confluence-home/confluence.cfg.dev.xml:/var/atlassian/confluence:rw
+
+#TODO: cannot set the missing role sdlc_confluence_user 
+ db-confluence:
+  restart: always
+  image: postgres:9.2
+  ports:
+  - "5420:5420"
+  expose:
+  - "5420"
+  hostname: postgres01
+  environment:
+  - DEBUG=false
+  - DB_USER=******
+  - DB_ROLE=******
+  - DB_PASS=******
+  - DB_NAME=******
+  - DB_PORT=******
+  volumes:
+  - vol-db-confluence:/var/lib/postgresql
