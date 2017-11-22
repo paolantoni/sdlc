@@ -126,5 +126,4 @@ services:
   - vol-registry-home:/var/lib/registry
   - vol-registry-certs:/certs
   - vol-registry-auth:/auth
-  - ./config.yml:/etc/docker/registry/config.yml
   - /etc/localtime:/etc/localtime:ro
