@@ -15,11 +15,10 @@ services:
   depends_on:
   - db-confluence
   links:
-  - db-confluence:postgres01
-#  volumes:
-#  - ./confluence-home/confluence.cfg.dev.xml:/var/atlassian/confluence:rw
+  - db-confluence:postgres_confluence
+  volumes:
+  - ./confluence/confluence.cfg.xml:/var/atlassian/confluence/confluence.cfg.xml:rw
 
-#TODO: cannot set the missing role sdlc_confluence_user 
  db-confluence:
   restart: always
   image: postgres:9.2
@@ -27,13 +26,13 @@ services:
   - "5420:5420"
   expose:
   - "5420"
-  hostname: postgres01
+  hostname: postgres_confluence
   environment:
   - DEBUG=false
-  - DB_USER=******
-  - DB_ROLE=******
-  - DB_PASS=******
-  - DB_NAME=******
-  - DB_PORT=******
+  - DB_USER=confluence_user
+  - DB_ROLE=confluence_user
+  - DB_PASS=confluence_pswd
+  - DB_NAME=confluence
+  - DB_PORT=5420
   volumes:
   - vol-db-confluence:/var/lib/postgresql
